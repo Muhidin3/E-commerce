@@ -23,7 +23,7 @@ function Products({items}:{items:Product[]}) {
 
       <Grid container spacing={1} sx={{borderRadius:'10px'}}>
           {items.map((item, index) => (
-            <Grid key={index} xs={12} sm={4} md={3} lg={3} xl={2} >
+            <Grid key={index} item  xs={12} sm={6} md={4} lg={3} xl={2} >
               <ProductCard 
                 productName={item.productName} 
                 description={item.description} 

@@ -4,7 +4,6 @@ import axios from 'axios';
 import Image from 'next/image';
 import React from 'react'
 import { Product } from '../page';
-
 async function page({params}:{params:{id:string}}) {
   const {id} = await params
   // console.log(id)

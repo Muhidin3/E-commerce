@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,6 +8,12 @@ import HeaderProducts from './small/HeaderProducts';
 import { auth } from '../api/auth/[...nextauth]/auth';
 import ProfileWithDropdown from './ProfileWithDropdown';
 import { Box } from '@mui/material';
+import { DarkModeOutlined } from '@mui/icons-material';
+import { useThemeMode } from './Theme';
+import ColourMode from './small/ColourMode';
+
+
+
 
 
 const Header: React.FC = async () => {
@@ -16,7 +23,7 @@ const Header: React.FC = async () => {
       flexGrow: 1,
     },
     appBar: {
-      backgroundColor: '#2196f3', // Blue color
+    
     },
     title: {
       flexGrow: 1,
@@ -27,23 +34,27 @@ const Header: React.FC = async () => {
       textTransform: 'none',
     },
   }
+  // const { toggleColorMode,mode } = useThemeMode();
   return (
     <div style={style.root}>
       <AppBar position="static" style={style.appBar}>
         <Toolbar>
-          <Typography variant="h6" style={style.title}>
+          <Typography variant="h6" style={style.title} className='text-white'>
             <Link href={'/'}>E-com</Link>
           </Typography>
 
            
               <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Home</Link>
-              <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}><HeaderProducts/></Link>
+              <HeaderProducts />
               <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>About Us</Link>
               <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Contact</Link>
               {!session && <><Link href={'/auth/login'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Login</Link>
               <Link href={'/auth/register'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Signup</Link></>}
+              <ColourMode/>
               {session &&
-              <Box style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}><ProfileWithDropdown/></Box>
+              <Box style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>
+                <ProfileWithDropdown/>
+                </Box>
               }
             
           

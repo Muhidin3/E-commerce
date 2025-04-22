@@ -24,15 +24,9 @@ const ProductCard= ({ productName, description, image, price,_id,condition  }:Pr
     },
     media: {
       height: 140,
-      backgroundColor:'#000',
       borderRadius:'0px 0px 5px 5px',
     },
     price: {
-      fontWeight: 'bold',
-      marginTop: '5px',
-    },
-    sold: {
-      color: 'red',
       fontWeight: 'bold',
       marginTop: '5px',
     },
@@ -56,11 +50,11 @@ const handleClick = ()=>{
         
       </div>
 
-      <CardContent className='bg-white relative'>
+      <CardContent className='relative'>
         <Typography variant="h5" sx={{whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis',fontSize:'clamp(12px,2.5vw,30px)'}}>
           {productName}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p" sx={{maxHeight:'10px',display:'inline-block'}}>
+        <Typography variant="body2" className='line-clamp-2' color="textSecondary" component="p" sx={{maxHeight:'40px',display:'inline-block'}}>
           {description.slice(0,50)}
         </Typography>
         <Typography style={style.price} variant="h6" component="div">

@@ -34,9 +34,9 @@ function Page() {
   
     return (
     <>
-    <Box sx={{justifySelf:'center',bgcolor:'#f2f2f2',p:3,borderRadius:'20px',mt:'10%',width:'500px'}}>
+    <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px'}}>
         <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Login</Typography>
-        <TextField label='Name' sx={{display:'block',mb:2}} fullWidth
+        <TextField label='Name' sx={{display:'block',mb:2,bgcolor:'white'}} fullWidth
           type='text'
           placeholder='username'
           value={username}
