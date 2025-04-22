@@ -1,0 +1,242 @@
+[
+    {
+      "productName": "Wireless Mouse",
+      "price": 25.99,
+      "description": "Ergonomic and battery-efficient mouse with USB receiver.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "jly"
+    },
+    {
+      "productName": "Gaming Headset",
+      "price": 79.95,
+      "description": "Surround sound headset with noise-canceling mic.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "evo"
+    },
+    {
+      "productName": "Smartphone Stand",
+      "price": 9.49,
+      "description": "Adjustable stand suitable for all smartphone models.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "ltd"
+    },
+    {
+      "productName": "Bluetooth Speaker",
+      "price": 35.00,
+      "description": "Compact, waterproof speaker with powerful bass.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "jan"
+    },
+    {
+      "productName": "Laptop Sleeve",
+      "price": 18.25,
+      "description": "Slim and padded sleeve for 13-inch laptops.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "fbr"
+    },
+    {
+      "productName": "Webcam HD 1080p",
+      "price": 45.99,
+      "description": "High-quality webcam ideal for streaming and video calls.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "opt"
+    },
+    {
+      "productName": "Mechanical Keyboard",
+      "price": 89.50,
+      "description": "RGB mechanical keyboard with blue switches.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "spr"
+    },
+    {
+      "productName": "Noise Cancelling Earbuds",
+      "price": 59.99,
+      "description": "Wireless earbuds with long battery life.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "vib"
+    },
+    {
+      "productName": "USB-C Hub",
+      "price": 27.89,
+      "description": "Multi-port hub with HDMI, USB 3.0, and SD card reader.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "oct"
+    },
+    {
+      "productName": "LED Desk Lamp",
+      "price": 32.10,
+      "description": "Touch control lamp with adjustable brightness and color.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "lmp"
+    },
+    {
+      "productName": "4K Monitor",
+      "price": 219.99,
+      "description": "27-inch UHD monitor with HDR support.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "hdv"
+    },
+    {
+      "productName": "Portable SSD 1TB",
+      "price": 129.95,
+      "description": "High-speed external SSD with USB-C connection.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "fst"
+    },
+    {
+      "productName": "Laptop Cooling Pad",
+      "price": 19.99,
+      "description": "Quiet cooling pad with LED fans for gaming laptops.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "chl"
+    },
+    {
+      "productName": "Smartwatch Series 5",
+      "price": 159.00,
+      "description": "Fitness tracking and notifications on your wrist.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "tck"
+    },
+    {
+      "productName": "Ergonomic Office Chair",
+      "price": 249.99,
+      "description": "Comfortable mesh chair with lumbar support.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "wrk"
+    },
+    {
+      "productName": "Wi-Fi Router",
+      "price": 64.99,
+      "description": "Dual-band gigabit router with wide range.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "ntl"
+    },
+    {
+      "productName": "Action Camera",
+      "price": 139.00,
+      "description": "Waterproof 4K camera with wide-angle lens.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "xtr"
+    },
+    {
+      "productName": "Drawing Tablet",
+      "price": 89.00,
+      "description": "Digital pen tablet for illustrators and designers.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "skh"
+    },
+    {
+      "productName": "Portable Projector",
+      "price": 179.50,
+      "description": "Mini projector with HDMI and wireless casting.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "prs"
+    },
+    {
+      "productName": "Wireless Charger",
+      "price": 22.95,
+      "description": "Fast charging pad for all Qi-compatible devices.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "chx"
+    },
+    {
+      "productName": "Electric Kettle",
+      "price": 29.99,
+      "description": "Stainless steel kettle with auto shut-off.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "tea"
+    },
+    {
+      "productName": "Smart LED Strip",
+      "price": 15.99,
+      "description": "Color-changing LED lights with remote control.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "led"
+    },
+    {
+      "productName": "Laptop Stand",
+      "price": 34.90,
+      "description": "Adjustable stand to improve posture and airflow.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "upr"
+    },
+    {
+      "productName": "Fitness Tracker Band",
+      "price": 45.99,
+      "description": "Track your steps, heart rate, and sleep patterns.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "fit"
+    },
+    {
+      "productName": "Digital Alarm Clock",
+      "price": 14.50,
+      "description": "LED display clock with snooze and USB charging.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "zup"
+    },
+    {
+      "productName": "Photo Light Box",
+      "price": 39.95,
+      "description": "Portable photography box for product shots.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "pht"
+    },
+    {
+      "productName": "Wireless Presenter",
+      "price": 19.99,
+      "description": "USB laser pointer for slideshows and teaching.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "ppt"
+    },
+    {
+      "productName": "USB Microphone",
+      "price": 69.99,
+      "description": "Clear sound mic for streaming and voiceover work.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "used",
+      "image": "mic"
+    },
+    {
+      "productName": "Cord Organizer",
+      "price": 6.49,
+      "description": "Keep your cables tidy and organized on your desk.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "tie"
+    },
+    {
+      "productName": "Wireless Charging Mouse Pad",
+      "price": 27.89,
+      "description": "2-in-1 mouse pad with built-in phone charger.",
+      "user": "67a5887deda99e55149f48b9",
+      "condition": "new",
+      "image": "pad"
+    }
+  ]

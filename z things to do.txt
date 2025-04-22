@@ -1,0 +1,15 @@
+////////////////////////basics to do//////////////////////////////////
+push to git 
+update product
+password encryption
+search and filter
+/////////////////fancy things////////////////////
+
+
+role based access(admin)
+category and filter
+responsive design ...loading spinners
+admin dashboard
+wishlist
+reviews and rating
+dark mode
