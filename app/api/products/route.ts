@@ -5,6 +5,7 @@ import { Readable } from 'stream';
 import formidable from 'formidable';
 import path from 'path';
 import fs from 'fs'
+import { IncomingMessage } from 'http';
 
 export async function GET() {
   const res = await Product.find()
@@ -20,49 +21,43 @@ export const config = {
   },
 };
 
-interface ReadableWithHeaders extends Readable {
-  headers: {
-    'content-type': string;
-    'content-length': string;
-  };
-  incomig:{
-    'g':'gg'
-  };
-
-}
-
-async function streamToNodeReadable(stream:ReadableStream<Uint8Array>) {
+async function readableStreamToNodeReadable(stream: ReadableStream<Uint8Array>): Promise<Readable> {
   const reader = stream.getReader();
-  return new Readable({
-    async read() {
-      const { done, value } = await reader.read();
-      if (done) this.push(null);
-      else this.push(value);
-    },
+  const nodeStream = new Readable({
+    read() {
+      reader.read().then(({ done, value }) => {
+        if (done) this.push(null);
+        else this.push(value);
+      });
+    }
   });
+  return nodeStream;
 }
+
 export async function POST(req:Request) {
   
   const form = formidable({ multiples: true });
+  const nodeStream = await readableStreamToNodeReadable(req.body!) 
   
-  const nodeStream:ReadableWithHeaders = await streamToNodeReadable(req.body as ReadableStream<Uint8Array>) as ReadableWithHeaders;
+ 
 
-  nodeStream.headers = {
-    'content-type': req.headers.get('content-type') || '',
-    'content-length': req.headers.get('content-length') || '',
-  };
+
+  return new Promise<NextResponse>((resolve) => {
+
   
+    const fakeReq = Object.assign(nodeStream, {
+      headers: Object.fromEntries(req.headers.entries()),
+      method: req.method,
+      url: ''
+    }) as IncomingMessage;
 
-
-  return new Promise((resolve) => {
-
-    form.parse(nodeStream, async (err, fields:Record<string,any[]>, files:{image:[{newFilename:string,filepath:string}]}) => {
+    form.parse(fakeReq, async (err, fields, files) => {
       if (err){
         console.error(err);
         return resolve(NextResponse.json({ error: 'Error parsing form data' }, { status: 500 }));
       }
     
-      const image = files.image[0] 
+      const image = files.image![0] 
       
       if(image){
 
@@ -73,7 +68,7 @@ export async function POST(req:Request) {
 
       for (let index = 0; index < Object.keys(fields).length; index++) {
         const key:string = Object.keys(fields)[index] 
-        editedData[key] = fields[key][0]
+        editedData[key] = fields[key]![0]
        }
 
        editedData['image'] = image.newFilename

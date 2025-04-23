@@ -4,13 +4,13 @@ import React, { useState } from 'react'
 
 function EditProfile() {
     const [user, setUser] = useState({name: '',oldPassword: '',newPassword: ''})
-    const [open, setOpen] = useState(true)  
+    const [open, setOpen] = useState(false)  
       
       
       return (<div>
     
     <Grid2 sx={{ml:'auto',mr:2,mt:2}} className="absolute right-0">
-        <Button variant='contained' disableRipple>Edit Profile</Button>
+        <Button variant='contained' disableRipple onClick={()=>setOpen(true)}>Edit Profile</Button>
         <Dialog open={open} sx={{width:'100%'}}>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogContent>

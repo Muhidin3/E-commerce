@@ -1,10 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Product from "../../models/other.model";
 import path from "path";
 import formidable from "formidable";
-import { Readable } from "stream";
 import fs from 'fs'
 import User from "../../models/users.model";
+import { IncomingMessage } from "http";
+import { Readable } from "stream";
 
 interface Params{
     params:{id:string}
@@ -28,56 +29,41 @@ export async function GET(req:Request,{params}:Params) {
 
 
 
-interface ReadableWithHeaders extends Readable {
-  headers: {
-    'content-type': string;
-    'content-length': string;
-  };
-  incomig:{
-    'g':'gg'
-  };
-
-}
-
-async function streamToNodeReadable(stream:ReadableStream<Uint8Array>) {
-  const reader = stream.getReader();
-  return new Readable({
-    async read() {
-      const { done, value } = await reader.read();
-      if (done) this.push(null);
-      else this.push(value);
-    },
-  });
-}
-
-
 export const config = {
-    api: {
-      bodyParser: false,
-    },
-  };
+  api: {
+    bodyParser: false,
+  },
+};
+
+async function readableStreamToNodeReadable(stream: ReadableStream<Uint8Array>): Promise<Readable> {
+  const reader = stream.getReader();
+  const nodeStream = new Readable({
+    read() {
+      reader.read().then(({ done, value }) => {
+        if (done) this.push(null);
+        else this.push(value);
+      });
+    }
+  });
+  return nodeStream;
+}
 
 
-
-export async function PATCH(req:Request,{params}:Params) {
+export async function PATCH(req:NextRequest,{params}:Params) {
     const {id} = await params
-
-
-
     const form = formidable({ multiples: true });
     
-    const nodeStream:ReadableWithHeaders = await streamToNodeReadable(req.body as ReadableStream<Uint8Array>) as ReadableWithHeaders;
+    const nodeStream = await readableStreamToNodeReadable(req.body!) 
   
-    nodeStream.headers = {
-      'content-type': req.headers.get('content-type') || '',
-      'content-length': req.headers.get('content-length') || '',
-    };
-    
+    const fakeReq = Object.assign(nodeStream, {
+      headers: Object.fromEntries(req.headers.entries()),
+      method: req.method,
+      url: ''
+    }) as IncomingMessage;
+
+    return new Promise<NextResponse>((resolve) => {
   
-  
-    return new Promise((resolve) => {
-  
-      form.parse(nodeStream, async (err, fields:Record<string,any[]>, files:{image:[{newFilename:string,filepath:string}]}) => {
+      form.parse(fakeReq, async (err, fields, files) => {
         if (err){
           console.error(err);
           return resolve(NextResponse.json({ error: 'Error parsing form data' }, { status: 500 }));
@@ -94,7 +80,7 @@ export async function PATCH(req:Request,{params}:Params) {
   
         for (let index = 0; index < Object.keys(fields).length; index++) {
           const key:string = Object.keys(fields)[index] 
-          editedData[key] = fields[key][0]
+          editedData[key] = fields[key]![0]
          }
   
          editedData['image'] = image.newFilename
@@ -107,7 +93,7 @@ export async function PATCH(req:Request,{params}:Params) {
   
             for (let index = 0; index < Object.keys(fields).length; index++) {
               const key:string = Object.keys(fields)[index] 
-              editedData[key] = fields[key][0]
+              editedData[key] = fields[key]![0]
              }
              const newProduct = await Product.findByIdAndUpdate(id,editedData);
              
