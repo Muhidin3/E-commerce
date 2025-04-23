@@ -48,23 +48,39 @@ function SimpleComponent() {
 
     return (
         <>
-        <Box sx={{justifySelf:'center',bgcolor:'#f2f2f2',p:3,borderRadius:'20px',mt:'10%',width:'500px'}}>
+        <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px',border:'1px solid #ccc',boxShadow:'0 0 10px rgba(0, 0, 0, 0.1)'}}>
             <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Register</Typography>
     
             <TextField 
                 label='Name' 
                 name='name' 
-                sx={{display:'block',mb:2}} 
+                InputLabelProps={{ shrink: true  }}
+                sx={{display:'block',mb:2,
+                    '& input:-webkit-autofill': {
+                        boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
+                        WebkitTextFillColor: 'white',
+                        transition: 'background-color 5000s ease-in-out 0s',
+                    }
+                }} 
                 fullWidth 
-                onChange={handlechange} 
+                onChange={handlechange}
+
             />
+            
             <TextField 
                 label='Password' 
                 name='password' 
                 type='password' 
-                sx={{display:'block'}} 
+                sx={{display:'block',
+                    '& input:-webkit-autofill': {
+                        boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
+                        WebkitTextFillColor: 'white',
+                        transition: 'background-color 5000s ease-in-out 0s',
+                    }}} 
                 fullWidth 
                 onChange={handlechange} 
+                InputLabelProps={{ shrink: true  }}
+
             />
     
             <Button 

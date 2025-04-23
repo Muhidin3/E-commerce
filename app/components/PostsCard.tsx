@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
-import { Delete, Edit } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, MenuItem, TextField, Typography } from '@mui/material'
+import { Delete, Edit, EditNote, EditOff, EditOutlined, EditRounded, EditSharp } from '@mui/icons-material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, MenuItem, TextField, Typography, useTheme } from '@mui/material'
 import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState,memo } from 'react'
  
-const PostCard = memo(
-  function PostsCard({data}:{data:{price:number,description:string,productName:string,image:string,_id:string}}){
+const PostCard = memo(function PostsCard({data}:{data:{price:number,description:string,productName:string,image:string,_id:string}}){
     const router = useRouter()
     const [deleteDialog,setdelDialog] = useState(false)
-
+    const theme = useTheme()
+    const [mode,setMode] = useState(theme.palette.mode)
 
 
     const handleDeleteClick = async () => {
@@ -68,10 +68,10 @@ const PostCard = memo(
     };
   
     return (
-      <div className='my-2 shadow-md rounded-2xl hover:bg-gray-100 hover:cursor-pointer'>
+      <div className='my-2 shadow-md rounded-2xl hover:cursor-pointer border-1 border-slate-600 ml-5 hover:shadow-xl'>
         <Grid2 container sx={{m:1,borderRadius:'0px',maxWidth:500}}>
   
-            <Grid2 sx={{p:1}}>
+            <Grid2 sx={{p:1,borderRight:'1px solid'}} className='border-r-slate-600'>
               <div className="" style={{width:'200px',height:'100px'}}>
                 <Image src={`/uploads/${data.image}`} style={{height:'100px',width:'auto',justifySelf:'center'}} width={100} height={100} alt='product photo'/>
               </div>
@@ -84,13 +84,13 @@ const PostCard = memo(
                 <Typography variant='body2' sx={{display:'inline-block'}}>{data.price }</Typography>
                 <Typography variant='body2' sx={{display:'inline-block',ml:'10%',color:'green'}}>Active </Typography>
                 <Box sx={{color:'red',display:'inline-block',position:'absolute',top:10,right:10,scale:1,}}>
-                  <Delete onClick={()=>setdelDialog(true)} sx={{display:'block',mb:1,':hover':{scale:1.2}}}></Delete>
+                  <Delete onClick={()=>setdelDialog(true)} sx={{display:'block',mb:1,color:theme.palette.primary.light,':hover':{scale:1.2,color:'rgba(255,80,80,1)'}}}></Delete>
                     <Dialog open={deleteDialog}>
                       
-                      <DialogTitle sx={{bgcolor:'Background'}}>
+                      <DialogTitle sx={{bgcolor:'red',color:'white',mb:2}}>
                         Delete
                       </DialogTitle>
-                      <DialogContent>
+                      <DialogContent sx={{pt:2}}>
                         Are you sure yo want to delete {data.productName}?
                       </DialogContent>
                       <DialogActions>
@@ -98,10 +98,8 @@ const PostCard = memo(
                         <Button variant='contained' onClick={handleDeleteClick} sx={{bgcolor:'red'}}>Delete</Button>
                       </DialogActions>
                     </Dialog>
-
-                  <Edit onClick={()=>setDialogState(true)} sx={{color:'#2196f3',':hover':{scale:1.1}}}></Edit>
+                  <EditOutlined onClick={()=>setDialogState(true)} sx={{color:theme.palette.primary.light,':hover':{scale:1.1,color:'#2196f3'}}}/>
                   </Box>
-  
             </Grid2>
   
         </Grid2>

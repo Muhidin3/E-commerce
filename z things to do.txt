@@ -1,10 +1,10 @@
 ////////////////////////basics to do//////////////////////////////////
-
+Edit profile
 search and filter
 ///////////////////////fancy things////////////////////
 
 
-category and filter
+category
 
 role based access(admin)
 admin dashboard

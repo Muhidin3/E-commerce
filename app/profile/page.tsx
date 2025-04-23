@@ -1,10 +1,11 @@
 import React from 'react'
 import Header from '../components/Header'
-import { Avatar, Button, Grid2, Typography } from '@mui/material'
+import { Avatar, Box, Button, Grid2, Typography } from '@mui/material'
 import PostsCard from '../components/PostsCard'
 import { auth } from '../api/auth/[...nextauth]/auth'
 import Link from 'next/link'
 import axios from 'axios'
+import EditProfile from '../components/EditProfile'
 
 async function page() {
     const session = await auth()
@@ -18,18 +19,23 @@ async function page() {
         <Header/>
 
         {/* profile */}
-        <Grid2 container className="p-3 bg-gray-100 m-3 rounded-md relative">
+        <Grid2 container className="p-3 m-3 rounded-md relative">
 
-            <Grid2 sx={{ml:2,}} >
-                <div className="inline-block mb-2" style={{marginRight:'5%'}}>
-                <Avatar sx={{width:100,height:100}}><Typography variant='h2'>{session?.user?.name?.slice(0,1).toLocaleUpperCase() || 'P'}</Typography> </Avatar>
-                </div>
+            <Grid2 sx={{ml:2,width:'70%'}} >
+                <Box className="inline-block mr-10" sx={{width:100,height:100}}>
+                    <Avatar sx={{width:100,height:100}}>
+                        <Typography variant='h2'>
+                            {session?.user?.name?.slice(0,1).toLocaleUpperCase() || 'P'}
+                        </Typography>
+                    </Avatar>
+                </Box>
+                <Typography variant='h3' sx={{display:'inline-block'}}>{session?.user?.name?.toLocaleUpperCase()}</Typography>
 
-                <Typography variant='h4' sx={{mb:1,display:'inline-block',fontSize:'3rem'}}>{session?.user?.name?.toLocaleUpperCase()}</Typography>
-                <Typography variant='body2'sx={{display:'block'}}> quam repellat quas deleniti soluta? Ex quaerat quam eaque debitis? Amet fugiat voluptates doloremque?</Typography>
             </Grid2>
-            <Grid2 sx={{ml:'auto',mr:2,mt:2}} className="absolute right-0">
-                <Button variant='contained' disableRipple><Link href={'/products/post'}>Post Item</Link></Button> 
+
+            <EditProfile/>
+            <Grid2 sx={{ml:'auto',mr:2,mt:2}} className="absolute right-0 bottom-0">
+                <Button variant='contained' disableRipple><Link href={'/products/post'}> Post Item </Link></Button> 
             </Grid2>
         </Grid2>
 

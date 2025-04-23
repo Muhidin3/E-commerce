@@ -36,14 +36,31 @@ function Page() {
     <>
     <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px'}}>
         <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Login</Typography>
-        <TextField label='Name' sx={{display:'block',mb:2,bgcolor:'white'}} fullWidth
+        <TextField label='Name' 
+        sx={{display:'block',mb:2,bgcolor:'white',
+            '& input:-webkit-autofill': {
+                boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
+                WebkitTextFillColor: 'white',
+                transition: 'background-color 5000s ease-in-out 0s',
+            }}} 
+          fullWidth
+          InputLabelProps={{ shrink: true  }}
           type='text'
           placeholder='username'
           value={username}
           onChange={e=>setUsername(e.target.value)}
           required        
         ></TextField>
-        <TextField label='Password' type='password'sx={{display:'block',mb:2}} fullWidth
+
+        <TextField label='Password' type='password'
+        sx={{display:'block',mb:2,
+            '& input:-webkit-autofill': {
+                boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
+                WebkitTextFillColor: 'white',
+                transition: 'background-color 5000s ease-in-out 0s',
+            }}} 
+          fullWidth
+          InputLabelProps={{ shrink: true  }}
           placeholder='password'
           value={password}
           onChange={e=>setPassword(e.target.value)}

@@ -2,6 +2,7 @@ import Products from '../components/Products'
 import axios from 'axios';
 import Header from '../components/Header';
 import { Typography } from '@mui/material';
+import { redirect } from 'next/navigation';
 
 export interface Product{
   productName:string,
@@ -28,14 +29,19 @@ async function page() {
     </>)
   }
   
+  async function handleQuery(a:string) {
+    'use server'
+    redirect(`/products/search?q=${a}`)
+  }
+
   return (
     <div>
       <Header/>
       <div className=" m-1">
-      <Products items={res.data.data} />
+      <Products items={res.data.data} func={handleQuery}/>
       </div>
 
-      </div>
+    </div>
   )
 }
 
