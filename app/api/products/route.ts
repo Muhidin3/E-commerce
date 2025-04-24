@@ -6,8 +6,10 @@ import formidable from 'formidable';
 import path from 'path';
 import fs from 'fs'
 import { IncomingMessage } from 'http';
+import connectDB from '../config/db';
 
 export async function GET() {
+  connectDB()
   const res = await Product.find()
   if(!res){
     return NextResponse.json({ message: 'NO product',data:[{}] });

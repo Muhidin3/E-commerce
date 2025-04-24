@@ -7,16 +7,16 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState,memo } from 'react'
  
-const PostCard = memo(function PostsCard({data}:{data:{price:number,description:string,productName:string,image:string,_id:string}}){
+const PostCard = memo(function PostsCard({data}:{data:{price:string,description:string,productName:string,image:string,_id:string}}){
     const router = useRouter()
     const [deleteDialog,setdelDialog] = useState(false)
     const theme = useTheme()
     const [mode,setMode] = useState(theme.palette.mode)
 
-
+    
     const handleDeleteClick = async () => {
 
-      const res = await axios.delete(`http://localhost:3000/api/products/${data._id}`)
+      const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${data._id}`)
       console.log(res.data)
       setdelDialog(false)
       router.refresh()
@@ -34,7 +34,7 @@ const PostCard = memo(function PostsCard({data}:{data:{price:number,description:
       if (image) {
         formData.append('image', image);
       }
-      const res = await axios.patch(`http://localhost:3000/api/products/${data._id}`,formData)
+      const res = await axios.patch(`${process.env.NEXT_PUBLIC_API_URL}/products/${data._id}`,formData)
       console.log(res.data)
       if(res.data.message == 'Edited successfully'){
         data = {productName:productName,price:price,description:description,_id:data._id,image:data.image}
@@ -46,7 +46,7 @@ const PostCard = memo(function PostsCard({data}:{data:{price:number,description:
   
   
     const [productName, setProductName] = useState(data.productName);
-    const [price, setPrice] = useState(data.price);
+    const [price, setPrice] = useState(data.price.toLocaleString());
     const [description, setDescription] = useState(data.description);
     const [condition, setCondition] = useState('new');
     const [category, setCategory] = useState('');

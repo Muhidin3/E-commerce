@@ -8,11 +8,11 @@ import { IncomingMessage } from "http";
 import { Readable } from "stream";
 
 interface Params{
-    params:{id:string}
+    params:Promise<{id:string}>
 }
 
-export async function GET(req:Request,{params}:Params) {
-    const {id} = await params
+export async function GET(req:NextRequest,{params}: {params: Promise<{ id: string }>}) {
+  const id = (await params).id
     try {
         const res = await Product.findById(id)
         const user = await User.findById(res.user)

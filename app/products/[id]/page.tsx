@@ -4,11 +4,11 @@ import axios from 'axios';
 import Image from 'next/image';
 import React from 'react'
 import { Product } from '../page';
-async function page({params}:{params:{id:string}}) {
+async function page({params}:{params:Promise<{id:string}>}) {
   const {id} = await params
   // console.log(id)
   
-  const res = await axios.get(`http://localhost:3000/api/products/${id}`)
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`)
 
 
   const data:Product = res.data.res

@@ -10,7 +10,7 @@ import EditProfile from '../components/EditProfile'
 async function page() {
     const session = await auth()
 
-        const res = await axios.get(`http://localhost:3000/api/userProducts?name=${session?.user?.id}`)
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/userProducts?name=${session?.user?.id}`)
         const data = res.data.data;
         
     
@@ -42,7 +42,7 @@ async function page() {
         {/* Posts */}
         <Grid2 container>
             <Grid2>
-                {data.map((v:{price:number,description:string,productName:string,image:string,_id:string},i:number)=>(
+                {data.map((v:{price:string,description:string,productName:string,image:string,_id:string},i:number)=>(
                     <div key={i}>
                     <PostsCard data={v}/>
                     </div>))}

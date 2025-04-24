@@ -4,11 +4,13 @@ import { configDotenv } from "dotenv";
 
 configDotenv()
 async function connectDB(){
+    configDotenv()
+     
     if (mongoose.connection.readyState==1) {
         return
     }
     try {
-        mongoose.connect('mongodb://localhost:27017/Ecom')
+        mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/Ecom')
         console.log(`mongodb connected successfuly`)
         
     } catch (error) {
@@ -18,3 +20,5 @@ async function connectDB(){
 
 
 export default connectDB
+
+//'mongodb://localhost:27017/Ecom''

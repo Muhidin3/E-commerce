@@ -4,25 +4,32 @@ import User from "../../models/users.model"
 import connectDb from '../../config/db'
 import bcrypt from "bcrypt"
 
+
+type Credentials={
+  username:string,
+  password:string,
+}
+
 export const authOptions:NextAuthConfig = {
+  trustHost: true,
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
+
       name: "Credentials",
+
       credentials: {
         username: { label: "username", type: "text", placeholder: "username" },
         password: { label: "Password", type: "password" }
       },
+
       async authorize(credentials) {
    
         await connectDb()
-        // console.log(credentials)
-        const user = await User.findOne({name:credentials.username})
-
+        const {username,password} = credentials as Credentials
+        const user = await User.findOne({name:username})
         if (user) {
-          const passwordMatch = await bcrypt.compare(credentials.password, user.password)
+          const passwordMatch = await bcrypt.compare(password, user.password)
           if(passwordMatch){
-            // If no error and we have user data, return it
             return user
           }
           else{

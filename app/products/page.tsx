@@ -20,7 +20,7 @@ async function page() {
 
     const q = ''
 
-    const res = await axios.get(`http://localhost:3000/api/products?q=${q}`)
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products?q=${q}`)
 
   if(!res){
     return(<>

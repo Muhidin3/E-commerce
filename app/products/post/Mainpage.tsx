@@ -4,7 +4,6 @@ import { TextField, Button, MenuItem, Typography, Box } from '@mui/material';
 import axios from 'axios';
 
 function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
-  console.log(session)
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -40,7 +39,7 @@ function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
       formData.append('image', image);
     }
 
-    const res = await axios.post('/api/products', formData, { });
+    const res = await axios.post('/api/products', formData,);
     console.log(res.data);
   };
 
