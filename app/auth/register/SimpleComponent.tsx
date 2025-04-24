@@ -5,15 +5,17 @@ import { useState } from 'react'
 import axios from 'axios' 
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
+import MyLoading from '@/app/components/MyLoading'
 
 function SimpleComponent() {
-
+    const [loading,setLoading] = useState(false)
     const [user, setUser] = useState({
         name: '',
         password: ''
     })
     const router = useRouter()
     async function handlesubmit() {
+        setLoading(true)
         try {
             const response = await axios.post('/api/register', user) 
             console.log(response.data.message)
@@ -48,6 +50,7 @@ function SimpleComponent() {
 
     return (
         <>
+        <MyLoading bool={loading}/>
         <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px',border:'1px solid #ccc',boxShadow:'0 0 10px rgba(0, 0, 0, 0.1)'}}>
             <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Register</Typography>
     

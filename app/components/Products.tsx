@@ -19,8 +19,6 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
 
       <Box className='relative inline-block size-10 m-1 bottom-2 pl-1 pt-1' sx={{width:'70%',borderBottom:'1px solid #f2f2f2'}}>
       <MySearch func={func} searchQuery={searchQuery}/>
-      {/* <Input  placeholder='Search' onChange={()=>func()} className='text-xl outline-0 relative pb-1' style={{width:'100%',borderRadius:'10px'}}></Input>
-        <Search className='absolute right--5 top-2 cursor-pointer mr-3'/> */}
       </Box>
 
       <Grid container spacing={1} sx={{borderRadius:'10px'}}>

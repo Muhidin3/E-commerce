@@ -34,7 +34,6 @@ const Header: React.FC = async () => {
       textTransform: 'none',
     },
   }
-  // const { toggleColorMode,mode } = useThemeMode();
   return (
     <div style={style.root}>
       <AppBar position="static" style={style.appBar}>
@@ -44,17 +43,15 @@ const Header: React.FC = async () => {
           </Typography>
 
            
-              <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Home</Link>
               <HeaderProducts />
-              <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>About Us</Link>
-              <Link href={'/'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Contact</Link>
+              
               {!session && <><Link href={'/auth/login'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Login</Link>
               <Link href={'/auth/register'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Signup</Link></>}
               <ColourMode/>
               {session &&
               <Box style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>
                 <ProfileWithDropdown/>
-                </Box>
+              </Box>
               }
             
           

@@ -1,11 +1,12 @@
 'use client'
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Product } from '../products/page';
+import MyLoading from './MyLoading';
 
 
 const ProductCard= ({ productName, description, image, price,_id,condition  }:Product) => {
@@ -35,9 +36,14 @@ const ProductCard= ({ productName, description, image, price,_id,condition  }:Pr
       marginTop: '10px',
     },
   }
+  const[ loading,setLoading] = useState(false)
   const router = useRouter()
-const handleClick = ()=>{
-  router.push(`/products/${_id}`)
+  const handleClick = ()=>{
+    setLoading(true)
+    router.push(`/products/${_id}`)
+}
+if(loading){
+  return (<MyLoading/>)
 }
 
   return (
