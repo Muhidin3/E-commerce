@@ -52,7 +52,7 @@ if(loading){
 
       <div style={style.media} >
         {/* <CardMedia image={image} title={title}    /> */}
-        <Image src={`/uploads/${image}`} style={{height:'100%',justifySelf:'center',width:'auto'}}  alt='product image'  width={1000} height={1000} />
+        <Image src={`${process.env.NEXT_PUBLIC_API_URL}/uploads/${image}`} style={{height:'100%',justifySelf:'center',width:'auto'}}  alt='product image'  width={1000} height={1000} />
         
       </div>
 
