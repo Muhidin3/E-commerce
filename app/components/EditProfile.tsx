@@ -9,7 +9,7 @@ function EditProfile() {
       
       return (<div>
     
-    <Grid2 sx={{ml:'auto',mr:2,mt:2}} className="absolute right-0">
+    <Grid2 sx={{}}>
         <Button variant='contained' disableRipple onClick={()=>setOpen(true)}>Edit Profile</Button>
         <Dialog open={open} sx={{width:'100%'}}>
             <DialogTitle>Edit Profile</DialogTitle>

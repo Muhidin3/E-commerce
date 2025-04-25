@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
-import { Avatar, Box, Button, Grid2, Typography } from '@mui/material'
+import { Avatar, Box, Button, Grid2, Typography, } from '@mui/material'
 import PostsCard from '../components/PostsCard'
 import { auth } from '../api/auth/[...nextauth]/auth'
 import Link from 'next/link'
@@ -19,25 +19,26 @@ async function page() {
         <Header/>
 
         {/* profile */}
-        <Grid2 container className="p-3 m-3 rounded-md relative">
+        <Box className="flex items-center justify-between p-4 rounded-xl shadow-md flex-col sm:flex-row ">
 
-            <Grid2 sx={{ml:2,width:'70%'}} >
-                <Box className="inline-block mr-10" sx={{width:100,height:100}}>
+            <Box className="flex items-center space-x-4">
+                <Box sx={{width:100,height:100}}>
                     <Avatar sx={{width:100,height:100}}>
                         <Typography variant='h2'>
                             {session?.user?.name?.slice(0,1).toLocaleUpperCase() || 'P'}
                         </Typography>
                     </Avatar>
                 </Box>
-                <Typography variant='h3' sx={{display:'inline-block'}}>{session?.user?.name?.toLocaleUpperCase()}</Typography>
+                <Typography variant='h3'>{session?.user?.name?.toLocaleUpperCase()}</Typography>
 
-            </Grid2>
+            </Box>
 
-            <EditProfile/>
-            <Grid2 sx={{ml:'auto',mr:2,mt:2}} className="absolute right-0 bottom-0">
+            <Box className='flex space-x-2 mt-3 sm:mt-0'>
+                <EditProfile/>
                 <Button variant='contained' disableRipple><Link href={'/products/post'}> Post Item </Link></Button> 
-            </Grid2>
-        </Grid2>
+            </Box>
+
+        </Box>
 
         {/* Posts */}
         <Grid2 container>
