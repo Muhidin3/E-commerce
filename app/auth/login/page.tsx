@@ -6,6 +6,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MyLoading from '@/app/components/MyLoading';
+import Message from '@/app/components/Message';
 
 function Page() {
     const [username, setUsername] = useState<string>("");
@@ -13,6 +14,9 @@ function Page() {
     const [error,setError] = useState(false)
     const router = useRouter();
     const [loading,setLoading] = useState(false)
+    const [message,setMessage] = useState<string>('')
+    const [type,setType] = useState<string>('')
+    const [bool,setBool] = useState(false)
       const handleSubmit = async () => {
         setLoading(true)
         const result = await signIn("credentials", {
@@ -21,7 +25,9 @@ function Page() {
           redirect: false, // Prevent automatic redirection
         });
         if (result?.error) {
-          alert("Login failed: " + result.error);
+          setMessage('Failed to login'+result?.error)
+          setType('error')
+          setBool(true)
           setError(true)
         } else if(result?.status!=200){
           alert('internal server error'+`more: ${result?.error} `)
@@ -36,13 +42,13 @@ function Page() {
   
     return (
     <>
-    <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px',border:'1px solid'}}>
+    <Message bool={bool} message={message} type={type}/>
+    <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',minWidth:'300px',border:'1px solid',width:'60%',maxWidth:'700px'}}>
         <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Login</Typography>
         <TextField label='Name' 
         sx={{display:'block',mb:2,
             '& input:-webkit-autofill': {
                 boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
-                WebkitTextFillColor: 'white',
                 transition: 'background-color 5000s ease-in-out 0s',
             }}} 
           fullWidth
@@ -58,7 +64,6 @@ function Page() {
         sx={{display:'block',mb:2,
             '& input:-webkit-autofill': {
                 boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
-                WebkitTextFillColor: 'white',
                 transition: 'background-color 5000s ease-in-out 0s',
             }}} 
           fullWidth

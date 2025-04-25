@@ -14,7 +14,7 @@ function HeaderProducts() {
       setwidth(window.innerWidth)
 
     }, [])
-    if(width<=600){
+    if(width<=650){
       return (
         <>
       <div className='inline-block duration-150' style={{marginLeft:'20px',color:'#fff',textTransform:'none'}} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>

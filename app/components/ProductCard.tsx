@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -9,33 +9,42 @@ import { Product } from '../products/page';
 import MyLoading from './MyLoading';
 
 
+const style = {
+  root: {
+    cursor:'pointer',
+    maxWidth: 345,
+    margin: '20px',
+    transition: 'transform 0.2s',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
+    height:'310px',
+    borderRadius:'10px',
+    zIndex:0
+  },
+  media: {
+    height: 140,
+    borderRadius:'0px 0px 5px 5px',
+  },
+  price: {
+    fontWeight: 'bold',
+    marginTop: '5px',
+  },
+  date: {
+    color: 'gray',
+    marginTop: '10px',
+  },
+}
 const ProductCard= ({ productName, description, image, price,_id,condition  }:Product) => {
-  const style = {
-    root: {
-      cursor:'pointer',
-      maxWidth: 345,
-      margin: '20px',
-      transition: 'transform 0.2s',
-      '&:hover': {
-        transform: 'scale(1.01)',
-      },
-      height:'310px',
-      borderRadius:'10px',
-      zIndex:0
-    },
-    media: {
-      height: 140,
-      borderRadius:'0px 0px 5px 5px',
-    },
-    price: {
-      fontWeight: 'bold',
-      marginTop: '5px',
-    },
-    date: {
-      color: 'gray',
-      marginTop: '10px',
-    },
-  }
+  const [width,setWidth] = useState(700)
+  useEffect(()=>{
+    setWidth(window.innerWidth)
+  
+  
+  },[])
+    if (width<600) {
+      
+    }
   const[ loading,setLoading] = useState(false)
   const router = useRouter()
   const handleClick = ()=>{
@@ -46,7 +55,10 @@ if(loading){
   return (<MyLoading/>)
 }
 
+
+
   return (
+
     <div onClick={handleClick}>
     <Card style={style.root}>
 

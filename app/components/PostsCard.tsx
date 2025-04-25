@@ -1,28 +1,38 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
-import { Delete, Edit, EditNote, EditOff, EditOutlined, EditRounded, EditSharp } from '@mui/icons-material'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid2, MenuItem, TextField, Typography, useTheme } from '@mui/material'
+import { Delete, EditOutlined } from '@mui/icons-material'
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography, useTheme } from '@mui/material'
 import axios from 'axios'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState,memo } from 'react'
+import MyLoading from './MyLoading'
+import Message from './Message'
  
 const PostCard = memo(function PostsCard({data}:{data:{price:string,description:string,productName:string,image:string,_id:string}}){
     const router = useRouter()
     const [deleteDialog,setdelDialog] = useState(false)
     const theme = useTheme()
-    const [mode,setMode] = useState(theme.palette.mode)
-
-    
+    const [loading,setLoading] = useState(false)
+    const [loadingMessage,setLoadingMessage] = useState('')
+    const[message,setMessage] = useState('')
+    const [messagestate,setMessagestate] = useState(false)
     const handleDeleteClick = async () => {
-
+      setLoadingMessage('Deleting...')
+      setLoading(true)
       const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/products/${data._id}`)
       console.log(res.data)
       setdelDialog(false)
       router.refresh()
+      if(res.data.message == 'Product deleted'){
+        setMessage('Deleted successfully')
+        setMessagestate(true)
+      } 
     }
   
     const handleUpdateClick = async (e:React.FormEvent) => {
+      setLoadingMessage('Updating...')
+      setLoading(true)
       e.preventDefault();
       const formData = new FormData();
       formData.append('productName', productName);
@@ -54,37 +64,29 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
     const [image, setImage] = useState<File | null>(null);
     const [dialogState,setDialogState] = useState(false)
   
-    const categories: Record<string, string[]> = {
-      Electronics: ['Mobile Phones', 'Computers', 'Home Appliances'],
-      Fashion: ['Clothing', 'Footwear', 'Accessories'],
-      'Home & Furniture': ['Furniture', 'Home Décor', 'Bedding', 'Kitchenware'],
-      'Cars & Accessories': ['Cars', 'Motorcycles', 'Car Parts'],
-      'Beauty & Personal Care': ['Skincare', 'Hair Care', 'Makeup', 'Fragrances'],
-      'Sports & Outdoors': ['Fitness Equipment', 'Outdoor Gear', 'Sports Equipment'],
-      'Toys & Games': ['Action Figures', 'Board Games', 'Educational Toys'],
-      'Books, Music & Movies': ['Books', 'Music', 'Movies'],
-      'Food & Beverages': ['Gourmet Food', 'Organic Items', 'Drinks'],
-      'Health & Wellness': ['Supplements', 'Medical Supplies', 'Personal Care Devices'],
-    };
+    if (loading) {
+      return<MyLoading message={loadingMessage} />
+    }
   
     return (
       <div className='my-2 shadow-md rounded-2xl hover:cursor-pointer border-1 border-slate-600 ml-5 hover:shadow-xl'>
-        <Grid2 container sx={{m:1,borderRadius:'0px',maxWidth:500}}>
+        <Message message={'message'} bool={messagestate}/>
+        <Box sx={{m:1,borderRadius:'0px',maxWidth:500,display:'flex',flexDirection:{xs:'column',sm:'row'},justifyContent:'space-between',alignItems:'center'}} >
   
-            <Grid2 sx={{p:1,borderRight:'1px solid'}} className='border-r-slate-600'>
+            <Box sx={{p:1}} className="flex justify-center items-center">
               <div className="" style={{width:'200px',height:'100px'}}>
                 <Image src={`/uploads/${data.image}`} style={{height:'100px',width:'auto',justifySelf:'center'}} width={100} height={100} alt='product photo'/>
               </div>
-              {/* <Avatar sx={{height:100,width:100,borderRadius:'10px 0 0 10px'}} variant='square'></Avatar>    */}
-            </Grid2>
+            </Box>
   
-            <Grid2 sx={{ml:1,p:1,width:'250px',position:'relative',pr:4}}>
+            <Box sx={{ml:1,p:1,width:'250px',position:'relative',pr:4}}>
                 <Typography variant='h5'>{data.productName}</Typography>
                 <Typography variant='body2' sx={{display:'block',maxWidth:'300px'}}>{data.description}</Typography>
                 <Typography variant='body2' sx={{display:'inline-block'}}>{data.price }</Typography>
                 <Typography variant='body2' sx={{display:'inline-block',ml:'10%',color:'green'}}>Active </Typography>
                 <Box sx={{color:'red',display:'inline-block',position:'absolute',top:10,right:10,scale:1,}}>
-                  <Delete onClick={()=>setdelDialog(true)} sx={{display:'block',mb:1,color:theme.palette.primary.light,':hover':{scale:1.2,color:'rgba(255,80,80,1)'}}}></Delete>
+                  <Delete 
+                  onClick={()=>{setdelDialog(true);setMessagestate(true)}} sx={{display:'block',mb:1,color:theme.palette.primary.light,':hover':{scale:1.2,color:'rgba(255,80,80,1)'}}}></Delete>
                     <Dialog open={deleteDialog}>
                       
                       <DialogTitle sx={{bgcolor:'red',color:'white',mb:2}}>
@@ -100,9 +102,9 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
                     </Dialog>
                   <EditOutlined onClick={()=>setDialogState(true)} sx={{color:theme.palette.primary.light,':hover':{scale:1.1,color:'#2196f3'}}}/>
                   </Box>
-            </Grid2>
+            </Box>
   
-        </Grid2>
+        </Box>
   
       <Dialog open={dialogState}>
         <DialogTitle>

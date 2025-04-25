@@ -11,14 +11,15 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
 
 
   return (
-    <Box sx={{p:0}}>
-      <Typography sx={{
-                        display:'inline-block',
-                        fontSize:'30px',p:1,pr:5,
-                        borderRadius:'20px 20px 0 0'}}>Products</Typography> 
+    <Box sx={{p:0}} >
+      <Box sx={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+            <Typography sx={{ minWidth: '100px', p: 1,display:{xs:'none',sm:'block',mr:1},fontSize:'2rem',fontWeight:'bold'}}>
+              Products
+              </Typography> 
 
-      <Box className='relative inline-block size-10 m-1 bottom-2 pl-1 pt-1' sx={{width:'70%',borderBottom:'1px solid #f2f2f2'}}>
-      <MySearch func={func} searchQuery={searchQuery}/>
+            <Box sx={{ minWidth: '10px', p: 1 }}>
+              <MySearch func={func} searchQuery={searchQuery}/>
+            </Box>
       </Box>
 
       <Grid container spacing={1} sx={{borderRadius:'10px'}}>

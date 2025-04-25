@@ -50,7 +50,7 @@ const Header: React.FC = async () => {
               <ColourMode/>
               {session &&
               <Box style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>
-                <ProfileWithDropdown/>
+                <ProfileWithDropdown user={session.user?.name as string}/>
               </Box>
               }
             

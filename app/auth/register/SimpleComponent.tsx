@@ -7,25 +7,49 @@ import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import MyLoading from '@/app/components/MyLoading'
 
+function validatePassword(password: string): string {
+    if (password.length < 8) return 'Password must be at least 8 characters long';
+    if (!/[A-Z]/.test(password)) return 'Password must contain at least one uppercase letter';
+    if (!/[a-z]/.test(password)) return 'Password must contain at least one lowercase letter';
+    if (!/[0-9]/.test(password)) return 'Password must contain at least one number';
+    if (!/[^A-Za-z0-9]/.test(password)) return 'Password must contain at least one special character';
+    if (/\s/.test(password)) return 'Password cannot contain spaces';
+    return ''; // all good
+  }
 function SimpleComponent() {
     const [loading,setLoading] = useState(false)
+    const [loadingmessage,setLoadingMessage] = useState('')
     const [user, setUser] = useState({
         name: '',
         password: ''
     })
+    const [passwordError,setPasswordError] = useState('')
     const router = useRouter()
+
     async function handlesubmit() {
-        setLoading(true)
+        setLoading(true) 
+        setLoadingMessage('Registering...')
+        if (user.name == '' || user.password == '') {
+            setPasswordError('please fill all fields')
+            setLoading(false)
+            return
+            
+        }
+        if (passwordError!='') {
+            setPasswordError('please follow rules before submitting')
+            setLoading(false)
+            return
+        }
         try {
-            const response = await axios.post('/api/register', user) 
-            console.log(response.data.message)
+            const response = await axios.post(`/api/register`, user) 
             if(response.data.message == 'sucessful'){
+                setLoadingMessage('Logging in...')
                 const username = user.name
                 const password = user.password
                 const result = await signIn("credentials", {
                           username,
                           password,
-                          redirect: false, // Prevent automatic redirection
+                          redirect: false,
                         });
                 
                         console.log(result)
@@ -34,10 +58,11 @@ function SimpleComponent() {
                         } else if(result?.status!=200){
                           alert('internal server error'+`more: ${result?.error} `)
                         }else {
-                          router.push("/products"); // Redirect on successful login
+                          router.push("/products");
                         }
-
-                // redirect('/auth/login')
+            }
+            else{
+                setPasswordError('user already exists')
             }
         } catch (error) {
             console.error('Error registering user:', error)
@@ -46,11 +71,19 @@ function SimpleComponent() {
 
     function handlechange(e: { target: { name: string, value: string } }) {
         setUser({ ...user, [e.target.name]: e.target.value }) 
+        if(e.target.name=='password'){
+            const error = validatePassword(e.target.value)
+            setPasswordError(error)
+        }
+    }
+
+
+    if (loading) {
+        return(<MyLoading message={loadingmessage}/>)
     }
 
     return (
         <>
-        <MyLoading bool={loading}/>
         <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px',border:'1px solid #ccc',boxShadow:'0 0 10px rgba(0, 0, 0, 0.1)'}}>
             <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Register</Typography>
     
@@ -83,9 +116,10 @@ function SimpleComponent() {
                 fullWidth 
                 onChange={handlechange} 
                 InputLabelProps={{ shrink: true  }}
-
+                
             />
-    
+            <Typography variant='body2' sx={{color:'red',justifySelf:'center',mt:2,opacity:0.9}}>{passwordError}</Typography>
+
             <Button 
                 variant='contained' 
                 sx={{width:'100%',margin:'50px 0px 20px 0px'}} 
@@ -95,7 +129,7 @@ function SimpleComponent() {
             </Button>
             <Typography variant='body2' sx={{textAlign:'center',}}>
                 Already have an account? 
-                <Link href={'/auth/login'}> Log in</Link>
+                <Link href={'/auth/login'} onClick={()=>{setLoading(true);setLoadingMessage('Wait a moment...')}}> Log in</Link>
             </Typography>
         </Box>
         </>
