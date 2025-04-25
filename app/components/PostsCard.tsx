@@ -75,7 +75,7 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
   
             <Box sx={{p:1}} className="flex justify-center items-center">
               <div className="" style={{width:'200px',height:'100px'}}>
-                <Image src={`/uploads/${data.image}`} style={{height:'100px',width:'auto',justifySelf:'center'}} width={100} height={100} alt='product photo'/>
+                <Image src={`https://ecom-mauve-eight.vercel.app/uploads/${data.image}`} style={{height:'100px',width:'auto',justifySelf:'center'}} width={100} height={100} alt='product photo'/>
               </div>
             </Box>
   
