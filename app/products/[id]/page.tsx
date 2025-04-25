@@ -18,7 +18,7 @@ async function page({params}:{params:Promise<{id:string}>}) {
       <Header/>
       <Box sx={{mt:1,p:2}}>
         <div style={{height:'400px',width:'auto',backgroundColor:'black'}} className='rounded-2xl'>
-          <Image style={{height:'100%',justifySelf:'center',width:'auto'}} src={`/uploads/${data.image}`} alt='Product image' width={1000} height={1000}/>
+          <Image style={{height:'100%',justifySelf:'center',width:'auto'}} src={`https://ecom-mauve-eight.vercel.app/uploads/${data.image}`} alt='Product image' width={1000} height={1000}/>
         </div>
             <Box sx={{mt:2}}>
                 <Box sx={{borderBottom:'1px solid silver'}}>
