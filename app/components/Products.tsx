@@ -12,12 +12,12 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
 
   return (
     <Box sx={{p:0}} >
-      <Box sx={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
+      <Box sx={{display:'flex',flexDirection:'row',}}>
             <Typography sx={{ minWidth: '100px', p: 1,display:{xs:'none',sm:'block',mr:1},fontSize:'2rem',fontWeight:'bold'}}>
               Products
               </Typography> 
 
-            <Box sx={{ minWidth: '10px', p: 1 }}>
+            <Box sx={{ minWidth: '10px', p: 1,mx:3}} className='sm:w-xl'>
               <MySearch func={func} searchQuery={searchQuery}/>
             </Box>
       </Box>

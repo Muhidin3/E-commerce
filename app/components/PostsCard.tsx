@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState,memo } from 'react'
 import MyLoading from './MyLoading'
-import Message from './Message'
+import { useSnackbar } from './SnackBar'
  
 const PostCard = memo(function PostsCard({data}:{data:{price:string,description:string,productName:string,image:string,_id:string}}){
     const router = useRouter()
@@ -15,8 +15,9 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
     const theme = useTheme()
     const [loading,setLoading] = useState(false)
     const [loadingMessage,setLoadingMessage] = useState('')
-    const[message,setMessage] = useState('')
-    const [messagestate,setMessagestate] = useState(false)
+    const a = useSnackbar()
+
+
     const handleDeleteClick = async () => {
       setLoadingMessage('Deleting...')
       setLoading(true)
@@ -24,10 +25,11 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
       console.log(res.data)
       setdelDialog(false)
       router.refresh()
-      if(res.data.message == 'Product deleted'){
-        setMessage('Deleted successfully')
-        setMessagestate(true)
-      } 
+      if(res.data.message == 'Product deleted'){ 
+        a('Product deleted sucessfuly','success')
+      } else{
+        a('Failed to delete the product','error')
+      }
     }
   
     const handleUpdateClick = async (e:React.FormEvent) => {
@@ -50,6 +52,9 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
         data = {productName:productName,price:price,description:description,_id:data._id,image:data.image}
         setDialogState(false)
         router.refresh()
+        a('Product Updated sucessfuly','success')
+      }else{
+        a('Failed to updated the product','error')
       }
   
     }
@@ -69,24 +74,22 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
     }
   
     return (
-      <div className='my-2 shadow-md rounded-2xl hover:cursor-pointer border-1 border-slate-600 ml-5 hover:shadow-xl'>
-        <Message message={'message'} bool={messagestate}/>
+      <div className='my-2 shadow-md rounded-2xl hover:cursor-pointer border-1 border-slate-600 hover:shadow-xl mx-10'>
         <Box sx={{m:1,borderRadius:'0px',maxWidth:500,display:'flex',flexDirection:{xs:'column',sm:'row'},justifyContent:'space-between',alignItems:'center'}} >
-  
             <Box sx={{p:1}} className="flex justify-center items-center">
               <div className="" style={{width:'200px',height:'100px'}}>
                 <Image src={`https://ecom-mauve-eight.vercel.app/uploads/${data.image}`} style={{height:'100px',width:'auto',justifySelf:'center'}} width={100} height={100} alt='product photo'/>
               </div>
             </Box>
   
-            <Box sx={{ml:1,p:1,width:'250px',position:'relative',pr:4}}>
+            <Box sx={{ml:1,p:1,position:'relative',pr:4,width:{xs:'100%',sx:'250px',md:'250px'}}}>
                 <Typography variant='h5'>{data.productName}</Typography>
                 <Typography variant='body2' sx={{display:'block',maxWidth:'300px'}}>{data.description}</Typography>
                 <Typography variant='body2' sx={{display:'inline-block'}}>{data.price }</Typography>
                 <Typography variant='body2' sx={{display:'inline-block',ml:'10%',color:'green'}}>Active </Typography>
                 <Box sx={{color:'red',display:'inline-block',position:'absolute',top:10,right:10,scale:1,}}>
                   <Delete 
-                  onClick={()=>{setdelDialog(true);setMessagestate(true)}} sx={{display:'block',mb:1,color:theme.palette.primary.light,':hover':{scale:1.2,color:'rgba(255,80,80,1)'}}}></Delete>
+                  onClick={()=>{setdelDialog(true)}} sx={{display:'block',mb:1,color:theme.palette.primary.light,':hover':{scale:1.2,color:'rgba(255,80,80,1)'}}}></Delete>
                     <Dialog open={deleteDialog}>
                       
                       <DialogTitle sx={{bgcolor:'red',color:'white',mb:2}}>

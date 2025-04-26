@@ -12,9 +12,7 @@ function MySearch({func,searchQuery}:{func:(a:string)=>void,searchQuery?:string}
       e.preventDefault()
       setLoading(true)
       func(query)
-
     }
-
   }
 
   if (loading) {
@@ -34,7 +32,7 @@ function MySearch({func,searchQuery}:{func:(a:string)=>void,searchQuery?:string}
     <Box className="relative" sx={{width:'100%'}}>
         <Input value={query} 
                onChange={(e)=>setQuery(e.target.value)} 
-               onKeyDown={handleKeyDown} placeholder='Search' className='text-xl outline-0 relative pb-1' 
+               onKeyDown={handleKeyDown} placeholder='Search' className='text-xl outline-0 relative pb-1 w-full' 
                ></Input>
 
         <Box className='absolute right-0 top-2 cursor-pointer mr-3' onClick={()=>{func(query);setLoading(true)}}>

@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: 'ecom-mauve-eight.vercel.app',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost:3000',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };

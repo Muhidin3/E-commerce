@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Header'
-import { Avatar, Box, Button, Grid2, Typography, } from '@mui/material'
+import { Avatar, Box, Button, Typography, } from '@mui/material'
 import PostsCard from '../components/PostsCard'
 import { auth } from '../api/auth/[...nextauth]/auth'
 import Link from 'next/link'
@@ -19,7 +19,7 @@ async function page() {
         <Header/>
 
         {/* profile */}
-        <Box className="flex items-center justify-between p-4 rounded-xl shadow-md flex-col sm:flex-row ">
+        <Box className="flex items-center justify-between p-4 rounded-xl shadow-md flex-col sm:flex-row">
 
             <Box className="flex items-center space-x-4">
                 <Box sx={{width:100,height:100}}>
@@ -41,17 +41,14 @@ async function page() {
         </Box>
 
         {/* Posts */}
-        <Grid2 container>
-            <Grid2>
-                {data.map((v:{price:string,description:string,productName:string,image:string,_id:string},i:number)=>(
-                    <div key={i}>
-                    <PostsCard data={v}/>
-                    </div>))}
-            </Grid2>
-            <Grid2>
-                
-            </Grid2>
-        </Grid2>
+        
+        <Box sx={{maxWidth:'600px'}}>
+            {data.map((v:{price:string,description:string,productName:string,image:string,_id:string},i:number)=>(
+                <div key={i}>
+                <PostsCard data={v}/>
+                </div>))}
+        </Box>
+    
 
 
 

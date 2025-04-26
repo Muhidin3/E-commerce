@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button, Box, Container, useTheme, useMediaQuery } from "@mui/material";
 import Link from "next/link";
+import CategoriesPage from "./Categories";
 
 export default function MyHomePage() {
   const theme = useTheme();
@@ -16,6 +17,8 @@ export default function MyHomePage() {
   };
 
   return (
+    <>
+    
     <Box
       sx={{
         minHeight: "100vh",
@@ -25,9 +28,10 @@ export default function MyHomePage() {
         justifyContent: "center",
         px: 4,
         py: 6,
+        flexDirection:'column'
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="sm">
         <motion.div
           className="text-center max-w-xl"
           initial="hidden"
@@ -58,11 +62,15 @@ export default function MyHomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            style={{flexDirection:isMobile?'column':'row'}}
           >
             <Link href="/products">
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.0005 }}
                 whileTap={{ scale: 0.95 }}
+                initial={{width:'100%',x:0}}
+                animate={{width:isMobile?'120%':'400px',x:'-8%'}}
+                transition={{duration:0.3,delay:1.5}}
               >
                 <Button
                   variant="contained"
@@ -75,8 +83,9 @@ export default function MyHomePage() {
                     boxShadow: 3,
                     transition: "transform 0.3s",
                     "&:hover": {
-                      transform: "scale(1.1)",
+                      transform: "scale(1.01)",
                     },
+                    width:'100%'
                   }}
                 >
                   Start Shopping
@@ -86,31 +95,43 @@ export default function MyHomePage() {
 
             <Link href="/about">
               <motion.div
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.0005 }}
                 whileTap={{ scale: 0.95 }}
+                initial={{fontSize:'15px',}}
+                animate={{fontSize:'15px',}}
+                transition={{duration:1,delay:2}}
               >
                 <Button
                   variant="outlined"
                   color="primary"
                   size={isMobile ? "small" : "large"}
                   sx={{
+                    fontSize:'inherit',
                     px: 4,
                     py: 2,
                     borderRadius: "20px",
                     borderWidth: 2,
                     transition: "transform 0.3s",
                     "&:hover": {
-                      transform: "scale(1.1)",
+                      transform: "scale(1.01)",
                     },
+                    textWrapping: "none",
+                    width:'100%',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
                   }}
                 >
                   Learn More
                 </Button>
               </motion.div>
             </Link>
+
           </motion.div>
         </motion.div>
       </Container>
+    <CategoriesPage/> 
     </Box>
+    </>
   );
 }
