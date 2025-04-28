@@ -13,7 +13,7 @@ interface ProductsPageProps {
     
   }
 
-async function page({searchParams}:{searchParams:ProductsPageProps}) {
+async function page({searchParams}:{searchParams:Promise<ProductsPageProps>}) {
 const params = await searchParams
   const category =  params.category;
   const subcategory =  params.subcategory;
