@@ -1,12 +1,13 @@
 'use client'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { AppBar, Box, Button, TextField, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
 import React from 'react'
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MyLoading from '@/app/components/MyLoading';
-import Message from '@/app/components/Message';
+import ColourMode from '@/app/components/small/ColourMode';
+import { useSnackbar } from '@/app/components/SnackBar';
 
 function Page() {
     const [username, setUsername] = useState<string>("");
@@ -14,20 +15,25 @@ function Page() {
     const [error,setError] = useState(false)
     const router = useRouter();
     const [loading,setLoading] = useState(false)
-    const [message,setMessage] = useState<string>('')
-    const [type,setType] = useState<string>('')
-    const [bool,setBool] = useState(false)
+    const [loadingmessage,setLoadingMessage] = useState('')
+    const [errormessage,setErrorMessage] = useState('')
+    const snackbar = useSnackbar()
       const handleSubmit = async () => {
+        if (username === "" || password === "") {
+          setErrorMessage("Please fill all fields");
+          setError(true)
+          return;
+        }
         setLoading(true)
+        setLoadingMessage('Logging in...')
         const result = await signIn("credentials", {
           username,
           password,
           redirect: false, // Prevent automatic redirection
         });
         if (result?.error) {
-          setMessage('Failed to login'+result?.error)
-          setType('error')
-          setBool(true)
+          setLoading(false)
+          snackbar('Login failed: ' + result.error +'error','error')
           setError(true)
         } else if(result?.status!=200){
           alert('internal server error'+`more: ${result?.error} `)
@@ -35,15 +41,44 @@ function Page() {
           router.push("/products")
         }
       };
-  
+      
+      const style = {
+        root: {
+          flexGrow: 1,
+        },
+        appBar: {
+        
+        },
+        title: {
+          flexGrow: 1,
+        },
+        link: {
+          marginLeft: '20px',
+          color: '#fff',
+          textTransform: 'none',
+        },
+      }
+
       if(loading){
-        return(<MyLoading/>)
+        return(<MyLoading message={loadingmessage}/>)
       }
   
     return (
     <>
-    <Message bool={bool} message={message} type={type}/>
-    <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',minWidth:'300px',border:'1px solid',width:'60%',maxWidth:'700px'}}>
+    <div style={style.root}>
+      <AppBar position="static" style={style.appBar}>
+        <Toolbar>
+          <Typography variant="h6" style={style.title} className='text-white text-nowrap'>
+            <Link href={'/'}>E-com</Link>
+          </Typography>
+
+              <ColourMode/>
+            
+          
+        </Toolbar>
+      </AppBar>
+    </div>
+    <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',minWidth:'300px',border:'1px solid',width:{xs:'90%',sm:'80%',md:'60%',lg:'40%'},maxWidth:'700px'}}>
         <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Login</Typography>
         <TextField label='Name' 
         sx={{display:'block',mb:2,
@@ -74,11 +109,11 @@ function Page() {
           required
         
         ></TextField>
-        <Typography className='text-center text-red-500' sx={{display:error?'block':'none'}}>Check your credentials!</Typography>
+        <Typography className='text-center text-red-500' sx={{display:error?'block':'none'}}>{errormessage?errormessage:'Check your credentials!'} </Typography>
 
         <Button variant='contained' sx={{width:'100%',margin:'30px 0px 20px 0px'}} onClick={handleSubmit} type='submit'>Login</Button>
         <Typography variant='body2' sx={{textAlign:'center',mb:3,mt:3}}>Dont have an account? 
-            <Link href={'/auth/register'}> Register</Link>
+            <Link href={'/auth/register'} onClick={()=>setLoading(true)}> Register</Link>
             </Typography>
     </Box>
     </>

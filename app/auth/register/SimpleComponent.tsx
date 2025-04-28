@@ -1,11 +1,12 @@
 'use client'
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { AppBar, Box, Button, TextField, Toolbar, Typography } from '@mui/material'
 import Link from 'next/link'
 import { useState } from 'react'
 import axios from 'axios' 
 import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import MyLoading from '@/app/components/MyLoading'
+import ColourMode from '@/app/components/small/ColourMode'
 
 function validatePassword(password: string): string {
     if (password.length < 8) return 'Password must be at least 8 characters long';
@@ -77,15 +78,44 @@ function SimpleComponent() {
         }
     }
 
-
+    const style = {
+        root: {
+          flexGrow: 1,
+        },
+        appBar: {
+        
+        },
+        title: {
+          flexGrow: 1,
+        },
+        link: {
+          marginLeft: '20px',
+          color: '#fff',
+          textTransform: 'none',
+        },
+      }
     if (loading) {
         return(<MyLoading message={loadingmessage}/>)
     }
 
     return (
         <>
-        <Box sx={{justifySelf:'center',p:3,borderRadius:'20px',mt:'10%',width:'500px',border:'1px solid #ccc',boxShadow:'0 0 10px rgba(0, 0, 0, 0.1)'}}>
-            <Typography sx={{fontSize:'35px',textAlign:'center',mb:7,mt:7}}>Register</Typography>
+            <div style={style.root}>
+      <AppBar position="static" style={style.appBar}>
+        <Toolbar>
+          <Typography variant="h6" style={style.title} className='text-white text-nowrap'>
+            <Link href={'/'}>E-com</Link>
+          </Typography>
+
+              <ColourMode/>
+            
+          
+        </Toolbar>
+      </AppBar>
+    </div>
+
+        <Box sx={{justifySelf:'center',p:3,pt:0,borderRadius:'20px',mt:'10%',border:'1px solid #ccc',boxShadow:'0 0 10px rgba(0, 0, 0, 0.1)',width:{xs:'90%',sm:'80%',md:'60%',lg:'40%'}}}>
+            <Typography sx={{fontSize:'35px',textAlign:'center',my:{xs:5,sm:7}}}>Register</Typography>
     
             <TextField 
                 label='Name' 
@@ -94,7 +124,7 @@ function SimpleComponent() {
                 sx={{display:'block',mb:2,
                     '& input:-webkit-autofill': {
                         boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
-                        WebkitTextFillColor: 'white',
+                        WebkitTextFillColor: 'blue',
                         transition: 'background-color 5000s ease-in-out 0s',
                     }
                 }} 
@@ -110,7 +140,7 @@ function SimpleComponent() {
                 sx={{display:'block',
                     '& input:-webkit-autofill': {
                         boxShadow: '0 0 0 1000px rgba(0,0,0,0) inset',
-                        WebkitTextFillColor: 'white',
+                        WebkitTextFillColor: 'blue',
                         transition: 'background-color 5000s ease-in-out 0s',
                     }}} 
                 fullWidth 

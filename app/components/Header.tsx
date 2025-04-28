@@ -38,14 +38,15 @@ const Header: React.FC = async () => {
     <div style={style.root}>
       <AppBar position="static" style={style.appBar}>
         <Toolbar>
-          <Typography variant="h6" style={style.title} className='text-white'>
+          <Typography variant="h6" style={style.title} className='text-white text-nowrap'>
             <Link href={'/'}>E-com</Link>
           </Typography>
 
            
-              <HeaderProducts />
+              {session &&<HeaderProducts />}
               
-              {!session && <><Link href={'/auth/login'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Login</Link>
+              {!session && <>
+              <Link href={'/auth/login'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Login</Link>
               <Link href={'/auth/register'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Signup</Link></>}
               <ColourMode/>
               {session &&

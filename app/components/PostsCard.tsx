@@ -52,6 +52,7 @@ const PostCard = memo(function PostsCard({data}:{data:{price:string,description:
         data = {productName:productName,price:price,description:description,_id:data._id,image:data.image}
         setDialogState(false)
         router.refresh()
+        setLoading(false)
         a('Product Updated sucessfuly','success')
       }else{
         a('Failed to updated the product','error')
