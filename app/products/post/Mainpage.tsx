@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { TextField, Button, MenuItem, Typography, Box } from '@mui/material';
 import axios from 'axios';
+import MyLoading from '@/app/components/MyLoading';
+import { useSnackbar } from '@/app/components/SnackBar';
+import { redirect } from 'next/navigation';
 
 function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
   const [productName, setProductName] = useState('');
@@ -11,6 +14,8 @@ function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
   const [category, setCategory] = useState('');
   const [subcategory, setSubcategory] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [loading,setLoading] = useState(false)
+  const snackBar = useSnackbar()
 
   const categories: Record<string, string[]> = {
     Electronics: ['Mobile Phones', 'Computers', 'Home Appliances'],
@@ -27,6 +32,7 @@ function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true)
     const formData = new FormData();
     formData.append('productName', productName);
     formData.append('price', price);
@@ -39,9 +45,22 @@ function Mainpage({session}:{session :{user:{name:string,id:string}}}) {
       formData.append('image', image);
     }
 
-    const res = await axios.post('/api/products', formData,);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`, formData,);
+
+    if (res.data.message=='upload received') {
+      setLoading(false)
+      snackBar('Product posted successfully', 'success')
+      redirect('/profile')
+    }
+
     console.log(res.data);
   };
+
+
+if(loading){
+  return<MyLoading bool/>
+}
+
 
   return (
     <Box sx={{ padding: '20px', maxWidth: '600px', margin: '0 auto' }}>

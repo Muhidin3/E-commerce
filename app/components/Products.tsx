@@ -22,7 +22,7 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
             </Box>
       </Box>
 
-      <Grid container spacing={1} sx={{borderRadius:'10px'}}>
+      {items?<Grid container spacing={1} sx={{borderRadius:'10px'}}>
           {items.map((item, index) => (
             <Grid key={index} item  xs={12} sm={6} md={4} lg={3} xl={2} >
               <ProductCard 
@@ -37,7 +37,7 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
                 />
             </Grid>
           ))}
-        </Grid>
+        </Grid>:<><Typography>No product found</Typography></>}
         
       </Box>
   )

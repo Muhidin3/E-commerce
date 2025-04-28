@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NextResponse } from 'next/server';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { NextRequest, NextResponse } from 'next/server';
 import Product from '../models/other.model';
 import { Readable } from 'stream';
 import formidable from 'formidable';
@@ -8,9 +9,55 @@ import fs from 'fs'
 import { IncomingMessage } from 'http';
 import connectDB from '../config/db';
 
-export async function GET() {
+export async function GET(req:NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const category = searchParams.get('category') || ''
+  const subcategory = searchParams.get('subcategory')|| ''
+  const condition = searchParams.get('condition')|| ''
+  const maxPrice = searchParams.get('maxPrice')|| ''
+  const minPrice = searchParams.get('minPrice')|| ''
+  const recentlyPosted = searchParams.get('recentlyPosted')|| ''
+  console.log('category',category)
+
+  const query: any = {};
+
+  // Category filter
+  if (category) {
+    query.category = category;
+  }
+
+  // Subcategory filter
+  if (subcategory) {
+    query.subcategory = subcategory;
+  }
+
+  // Price filter
+  if (minPrice || maxPrice) {
+    query.price = {};
+    if (minPrice) {
+      query.price.$gte = Number(minPrice);
+    }
+    if (maxPrice) {
+      query.price.$lte = Number(maxPrice);
+    }
+  }
+
+  // Condition filter
+  if (condition) {
+    query.condition = condition; // 'New' or 'Used'
+  }
+
+  // Now sorting
+  let sortOption = {};
+  if (recentlyPosted === 'newest') {
+    sortOption = { createdAt: -1 }; // Newest first
+  } else if (recentlyPosted === 'oldest') {
+    sortOption = { createdAt: 1 }; // Oldest first
+  }
+
+
   connectDB()
-  const res = await Product.find()
+  const res = await Product.find(query).sort(sortOption)
   if(!res){
     return NextResponse.json({ message: 'NO product',data:[{}] });
   }
@@ -76,8 +123,8 @@ export async function POST(req:Request) {
        editedData['image'] = image.newFilename
        const newProduct = new Product(editedData);
        const res = await newProduct.save();
-
-       return resolve(NextResponse.json({ message: 'upload received',res:res }));
+       const ress = NextResponse.json({ message: 'upload received',res:res })
+       return resolve(ress);
 
       }
 
