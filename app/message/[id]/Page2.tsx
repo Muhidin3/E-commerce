@@ -18,7 +18,7 @@ type AMessage = {
 
 // const message = [{}]
 
-const socket = io(`${process.env.MESSAGE_API_URL}`)
+const socket = io(`${process.env.NEXT_PUBLIC_MESSAGE_API_URL}`)
 
 export default function ConversationPage({id}:{id:string}) {
   const {data:session,status} = useSession()
@@ -62,9 +62,9 @@ export default function ConversationPage({id}:{id:string}) {
     }
 
     async function fetchdata(){
-      const getuser = await axios.get(`${process.env.MESSAGE_API_URL}/api/getusername?id=${receiverId}`)
+      const getuser = await axios.get(`${process.env.NEXT_PUBLIC_MESSAGE_API_URL}/api/getusername?id=${receiverId}`)
       setwithuser(getuser.data.name)
-      const res = await axios.get(`${process.env.MESSAGE_API_URL}/api/message`+'?senderId='+senderId+'&receiverId='+receiverId)
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_MESSAGE_API_URL}/api/message`+'?senderId='+senderId+'&receiverId='+receiverId)
       if (res.data.message=='no message') {
         console.log(res.data.message)
       }
