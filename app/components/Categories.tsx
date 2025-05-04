@@ -1,9 +1,6 @@
 'use client';
-
 import { Box, Typography, Grid, Paper, useTheme } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
-
 const categories: Record<string, string[]> = {
   Electronics: ['Mobile Phones', 'Computers', 'Home Appliances'],
   Fashion: ['Clothing', 'Footwear', 'Accessories'],
@@ -37,12 +34,12 @@ const cardVariants = {
 export default function CategoriesPage() {
   const theme = useTheme();
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      window.scrollBy({ top: 60, behavior: 'smooth'});
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, []);
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     window.scrollBy({ top: 60, behavior: 'smooth'});
+  //   }, 3000);
+  //   return () => clearTimeout(timeout);
+  // }, []);
 
   return (
     <Box

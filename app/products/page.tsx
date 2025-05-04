@@ -14,6 +14,7 @@ export interface Product{
   price:number,
   _id:string,
   user?:string,
+  userid?:string
 }
 
 async function page() {

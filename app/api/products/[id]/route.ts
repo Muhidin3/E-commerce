@@ -16,9 +16,10 @@ export async function GET(req:NextRequest,{params}: {params: Promise<{ id: strin
     try {
         const res = await Product.findById(id)
         const user = await User.findById(res.user)
-        const data = res
-        data.user = user.name
-        return NextResponse.json({message:'got it',res})
+        const data = {...res}._doc
+        data.user = user.name;
+        data.userid = user._id;
+        return NextResponse.json({message:'got it',data})
         
     } catch (error) {
         console.error(error)

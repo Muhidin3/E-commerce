@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,15 +7,14 @@ import HeaderProducts from './small/HeaderProducts';
 import { auth } from '../api/auth/[...nextauth]/auth';
 import ProfileWithDropdown from './ProfileWithDropdown';
 import { Box } from '@mui/material';
-import { DarkModeOutlined } from '@mui/icons-material';
-import { useThemeMode } from './Theme';
+import { Message } from '@mui/icons-material';
 import ColourMode from './small/ColourMode';
 
 
 
 
 
-const Header: React.FC = async () => {
+const Header = async () => {
   const session  = await auth()
   const style = {
     root: {
@@ -49,6 +47,10 @@ const Header: React.FC = async () => {
               <Link href={'/auth/login'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Login</Link>
               <Link href={'/auth/register'} style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>Signup</Link></>}
               <ColourMode/>
+                <Box style={{marginLeft:'20px',color:'text.main',textTransform:'none',border:'1px solid #fff',borderRadius:'10px',padding:'5px'}}>
+                    <Link href={'/message'}><Message/></Link> 
+                </Box>
+              
               {session &&
               <Box style={{marginLeft:'20px',color:'#fff',textTransform:'none'}}>
                 <ProfileWithDropdown user={session.user?.name as string}/>

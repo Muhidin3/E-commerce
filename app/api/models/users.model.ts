@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type:String
+    },
+    image:{
+        type:String
+    },
+    message:{
+        type:Array,
+        default:[]
     }
 })
 
