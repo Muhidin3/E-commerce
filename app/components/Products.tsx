@@ -17,7 +17,7 @@ function Products({items,func,searchQuery}:{items:Product[],func:(a:string)=>voi
               Products
               </Typography> 
 
-            <Box sx={{ minWidth: '10px', p: 1,mx:3}} className='sm:w-xl'>
+            <Box sx={{ minWidth: '10px', p: 1,mx:3,width:'100%',ml:5,maxWidth:'500px'}} className='sm:w-xl'>
               <MySearch func={func} searchQuery={searchQuery}/>
             </Box>
       </Box>

@@ -13,8 +13,15 @@ async function page({params}:{params:Promise<{id:string}>}) {
 
 
   const data:Product = res.data.data
+  if(!data){
+    return(<>
+      <Header/>
+      <Typography>Error fetching data</Typography>
+    </>)
+  }
+  console.log(data)
   return (
-    <div>
+    <div> 
       <Header/>
       <Box sx={{mt:1,p:2}}>
         <div style={{maxHeight:'400px',width:'100%',backgroundColor:'black'}} className='rounded-2xl'>

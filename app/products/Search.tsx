@@ -1,6 +1,6 @@
 'use client'
 import { Search, Tune } from "@mui/icons-material"
-import { Box,Input } from "@mui/material"
+import { Box, useTheme } from "@mui/material"
 import { useState } from "react"
 import MyLoading from "../components/MyLoading"
 import FilterDialog from "../components/small/DialogForFilter"
@@ -9,6 +9,7 @@ function MySearch({func,searchQuery}:{func:(a:string)=>void,searchQuery?:string}
   const [query, setQuery] = useState(searchQuery || '')
   const [loading,setLoading] = useState(false)
   const [dialog,setDialog]= useState<boolean>(false)
+  const theme = useTheme()
   function handleKeyDown(e:React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       e.preventDefault()
@@ -32,10 +33,12 @@ function MySearch({func,searchQuery}:{func:(a:string)=>void,searchQuery?:string}
   
   return (
     <Box className="relative" sx={{width:'100%'}}>
-        <Input value={query} 
+        <input value={query} 
                onChange={(e)=>setQuery(e.target.value)} 
-               onKeyDown={handleKeyDown} placeholder='Search' className='text-xl outline-0 relative pb-1 w-full' 
-               ></Input>
+               onKeyDown={handleKeyDown} placeholder='search' 
+               style={{color:theme.palette.text.secondary}}
+               className='text-lg outline-0 relative pb-1 w-full mt-2 border-b-blue-200 border-b-2 focus:border-b-blue-500 focus:outline-none' type="text"
+               ></input>
 
         <Box className='absolute right-0 top-2 cursor-pointer mr-3' >
             <Search onClick={()=>{func(query);setLoading(true)}}/>
